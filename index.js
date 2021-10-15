@@ -23,6 +23,8 @@ app.use(cors());
 
 app.use('/', routes());
 
+app.use(express.static('upload'));
+
 //app.get('/',function(req, res){
   //  res.send('!Este es mi primer servidor web nodeJs¡');
 //})

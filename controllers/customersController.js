@@ -8,9 +8,15 @@ exports.add = async (req, res)=> {
         res.json({ message:'Nuevo cliente agregado'});
 
     }catch (error){
-        console.log(error);
-        res.send(error);
-        next();
+        if (error.code === 11000) {
+            res.status(400).json({
+                message: `Ya existe un cliente con el email: ${req.body.email}`,
+            });
+        }else{
+            res.status(400).json({
+                mesagge: 'Error al procesar la peticion'
+            });
+        }
     }
 };
 
@@ -49,11 +55,17 @@ req.body,
 {new: true }
 );
 res.json({message:'Cliente actualizado correctamente'});
-    }catch (error){
+}catch (error){
+    if (error.code === 11000) {
         res.status(400).json({
-            message: 'Error al procesar la petición'
+            message: `Ya existe un cliente con el email: ${req.body.email}`,
+        });
+    }else{
+        res.status(400).json({
+            mesagge: 'Error al procesar la peticion'
         });
     }
+}
 
 }
 
