@@ -7,7 +7,7 @@ name:{
     type: String,
     trim:true,
     },
-lastname:{
+lastName:{
     type:String,
     trim:true,
     
