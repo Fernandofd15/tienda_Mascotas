@@ -2,39 +2,48 @@ const express = require('express');
 
 const router = express.Router();
 
-const customersController = require('../controllers/customersController');
-const productsController = require('../controllers/productsController');
-const ordersController = require('../controllers/ordersController');
+const usuariosController = require('../controllers/usuariosController');
+const animalitosController = require('../controllers/animalitosController');
+const tiendasController = require('../controllers/tiendasController');
+const comprasController = require('../controllers/comprasController');
+
 
 
 module.exports = function(){
-   //post:customers
-   router.post('/customers', customersController.add);
-   // get: /customers
-   router.get('/customers', customersController.list);
+   //post:usuarios
+   router.post('/usuarios', usuariosController.add);
+   // get: /usuarios
+   router.get('/usuarios', usuariosController.list);
    
-   //leer cliente
-   //get: /customers/:id
-   router.get('/customers/:id', customersController.show);
+   //leer usuario
+   //get: /usuarios/:id
+   router.get('/usuarios/:id', usuariosController.show);
    
-   //Put:/customers/:id
-   router.put('/customers/:id', customersController.update);
-   // delete:/customers/:id
-   router.delete('/customers/:id', customersController.delete);
+   //Put:/usuarios/:id
+   router.put('/usuarios/:id', usuariosController.update);
+   // delete:/usuarios/:id
+   router.delete('/usuarios/:id', usuariosController.delete);
   
-   //Productos
-   router.post('/products', 
-   productsController.fileUpload,
-   productsController.add
+   //Animalitos
+  router.post('/animalitos', 
+   animalitosController.fileUpload,
+   animalitosController.add
    );
-   router.get('/products', productsController.list);
-   router.get('/products/:id', productsController.show);
-   router.put('/products/:id', 
-   productsController.fileUpload,
-   productsController.update);
-   router.delete('/products/:id', productsController.delete);
+   router.get('/animalitos', animalitosController.list);
+   router.get('/animalitos/:id', animalitosController.show);
+   router.put('/animalitos/:id', 
+   animalitosController.fileUpload,
+   animalitosController.update);
+   router.delete('/animalitos/:id', animalitosController.delete);
 
-   router.post('/orders', ordersController.add);
-   router.get('/orders', ordersController.list);
+   router.post('/tiendas', tiendasController.add);
+   router.get('/tiendas', tiendasController.list);
+    //Put:/usuarios/:id
+    router.put('/tiendas/:id', tiendasController.update);
+
+   router.post('/compras', comprasController.add);
+   router.get('/compras', comprasController.list);
+    //Put:/usuarios/:id
+    router.put('/compras/:id', comprasController.update);
    return router; 
 }
