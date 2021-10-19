@@ -2,6 +2,19 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
+const childSchema = new Schema({ 
+    idCompra:{
+        type: Schema.ObjectId,
+        ref:'Compra',
+    },
+    idUsuario:{
+        type: Schema.ObjectId,
+        ref:'Usuario',
+    },
+    nmbPrecio:{
+        type:Number,
+    }
+});
 const tiendasSchema = new Schema({
 strNombre:{
     type: String,
@@ -27,11 +40,18 @@ arrAnimalitosDisponibles: [{
         ref:'Animalito',
     },
 }],
-aJsnCompra: [{
-    _id:{
+aJsnCompra:[{
+    idCompra:{
         type: Schema.ObjectId,
         ref:'Compra',
     },
+    idUsuario:{
+        type: Schema.ObjectId,
+        ref:'Usuario',
+    },
+    nmbPrecio:{
+        type:Number,
+    }
 }],
 blnActivo:{
     type: Boolean,

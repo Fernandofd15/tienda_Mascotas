@@ -1,4 +1,6 @@
 const Tiendas = require('../models/Tienda');
+const Usuarios = require('../models/Usuario');
+const Animalitos = require('../models/Animalito');
 
 //Agregar Orden
 exports.add = async (req, res, next) =>{
@@ -19,6 +21,10 @@ exports.list = async (req, res, next) => {
     try {
        const tienda = await Tiendas.find({})
        .populate({
+        path: 'aJsnCompra.idCompra',
+        model: 'Compra'
+    })
+       .populate({
         path: 'arrAnimalitosDisponibles.idAnimalito',
         model: 'Animalito'
     });
@@ -30,7 +36,7 @@ exports.list = async (req, res, next) => {
     }
 }
 
-//Actualizar compra
+//Actualizar tienda
 exports.update = async (req, res, next) =>{
     try{
 const tiendas = await Tiendas.findOneAndUpdate(
@@ -46,4 +52,40 @@ res.json({message:'Información insertada correctamente’'});
         });
     }
 
+}
+
+// mostrar cliente por id
+exports.show = async(req, res, next) =>{
+    try{
+const tienda = await Tiendas.findById(req.params.id)
+.populate({
+    path: 'aJsnCompra.idCompra',
+    model: 'Compra'
+})
+   .populate({
+    path: 'arrAnimalitosDisponibles.idAnimalito',
+    model: 'Animalito'
+});
+
+if (!tienda){
+    res.status(404).json({ message: 'La tienda no existe'});
+    next();
+}
+res.json(tienda);
+    }catch(error){
+res.status(400).json({message: 'Error al procesar la peticion'});
+    }
+};
+
+
+//eliminar producto
+exports.delete = async (req, res, next) => {
+    try {
+        await Tiendas.findByIdAndDelete({ _id: req.params.id });
+        res.json({ mesagge: 'La tienda ha sido eliminada' })
+    } catch (error) {
+        res.status(400).json({
+            mesagge: 'Error al procesar la petición'
+        });
+    }
 }
