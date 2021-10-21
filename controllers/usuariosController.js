@@ -24,7 +24,13 @@ exports.add = async (req, res)=> {
 //primera accion: list
 exports.list = async (req, res) => {
     try{
-    const usuario = await Usuarios.find({});
+    const usuario = await Usuarios.find({})
+    .populate({
+        path: 'arrMascotas.idAnimalito',
+        model: 'Animalito',
+        
+    });
+
     res.json(usuario);
 }catch(error){
     console.log(error);

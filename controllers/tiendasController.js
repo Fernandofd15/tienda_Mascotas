@@ -21,12 +21,35 @@ exports.list = async (req, res, next) => {
     try {
        const tienda = await Tiendas.find({})
        .populate({
-        path: 'aJsnCompra.idCompra',
-        model: 'Compra'
+        path: 'aJsnCompra', 
+        populate: {
+            path:'idUsuario',
+            model:'Usuario'
+        }
     })
+    .populate({
+        path: 'aJsnCompra', 
+        populate: {
+            path:'idAnimalito',
+            model:'Animalito'
+        }
+    })
+
+    .populate({
+        path: 'aJsnCompra', 
+        populate: {
+            path:'arrMascotas',
+            populate: {
+                path:'idAnimalito',
+                model:'Animalito'
+            }
+        }
+    })
+
        .populate({
         path: 'arrAnimalitosDisponibles.idAnimalito',
-        model: 'Animalito'
+        model: 'Animalito',
+        
     });
        res.json(tienda);
     } catch (error) {
@@ -59,14 +82,36 @@ exports.show = async(req, res, next) =>{
     try{
 const tienda = await Tiendas.findById(req.params.id)
 .populate({
-    path: 'aJsnCompra.idCompra',
-    model: 'Compra'
+    path: 'aJsnCompra', 
+    populate: {
+        path:'idUsuario',
+        model:'Usuario'
+    }
 })
+.populate({
+    path: 'aJsnCompra', 
+    populate: {
+        path:'idAnimalito',
+        model:'Animalito'
+    }
+})
+
+.populate({
+    path: 'aJsnCompra', 
+    populate: {
+        path:'arrMascotas',
+        populate: {
+            path:'idAnimalito',
+            model:'Animalito'
+        }
+    }
+})
+
    .populate({
     path: 'arrAnimalitosDisponibles.idAnimalito',
-    model: 'Animalito'
+    model: 'Animalito',
+    
 });
-
 if (!tienda){
     res.status(404).json({ message: 'La tienda no existe'});
     next();

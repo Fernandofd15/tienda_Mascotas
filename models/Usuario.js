@@ -30,9 +30,10 @@ strTelefono:{
     trim:true,
 },
 arrMascotas: [{
-    animalito:{
+    idAnimalito:{
         type: Schema.ObjectId,
-        ref:'Animaliito',
+        ref:'Animalito',
+        autopopulate:true,
     },
 }],
 blnActivo:{
@@ -50,3 +51,4 @@ uptdatedAt:{
 });
 
 module.exports = mongoose.model('Usuario', usuariosSchema);
+usuariosSchema.plugin(require('mongoose-autopopulate'));

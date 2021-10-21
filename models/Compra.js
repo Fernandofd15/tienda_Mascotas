@@ -6,10 +6,17 @@ const comprasSchema = new Schema({
     idUsuario:{
         type: Schema.ObjectId,
         ref:'Usuario',
+        autopopulate:true,
     },
     idAnimalito:{
         type: Schema.ObjectId,
         ref:'Animalito',
+        autopopulate:true,
+    },
+    idTienda:{
+        type: Schema.ObjectId,
+        ref:'Tienda',
+        autopopulate:true,
     },
     dteFechaCompra:{
         type: Date,
@@ -34,3 +41,4 @@ const comprasSchema = new Schema({
 });
 
 module.exports = mongoose.model('Compra', comprasSchema);
+comprasSchema.plugin(require('mongoose-autopopulate'));

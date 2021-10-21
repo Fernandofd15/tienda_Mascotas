@@ -8,7 +8,7 @@ const routes = require('./routes');
 const app = express();
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/store-api', 
+mongoose.connect('mongodb://localhost/tienda_Mascotas', 
 {
 useNewUrlParser: true,
 } 

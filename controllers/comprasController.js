@@ -25,8 +25,15 @@ exports.add = async (req, res, next) => {
 exports.list = async (req, res, next) => {
     try {
         const compras = await Compras.find({})
-            .populate('idUsuario')
-            .populate('idAnimalito')
+        .populate({
+            path:'idAnimalito',
+            model:'Animalito'
+        })
+        .populate({
+            path:'idUsuario',
+            model:'Usuario'
+        });
+
         res.json({
             ok: true,
             mesagge: 'petición exitosa',
@@ -103,6 +110,40 @@ exports.show = async (req, res, next) => {
     }
 };
 
+
+// mostrar cliente por id
+exports.showIdTienda = async (req, res, next) => {
+    try {
+        const compra = await Compras.find({idTienda:req.params.idTienda})
+            .populate('idAnimalito')
+            .populate('idTienda')
+            .populate('idUsuario');
+
+        if (!compra) {
+            
+            res.json({ 
+                ok:true,
+                message: 'La compra no existe',
+                status:404,
+                cont:[]
+             });
+            next();
+        }
+        res.json({
+            ok: true,
+            mesagge: 'petición exitosa',
+            status:200,
+            cont: compra
+        });
+    } catch (error) {
+        res.json({
+            ok:false,
+            mesagge: 'Error al procesar la peticion',
+            status:400,
+            cont:[]
+        });
+    }
+};
 
 
 //eliminar producto

@@ -43,11 +43,14 @@ module.exports = function(){
     router.get('/tiendas/:id', tiendasController.show);
     router.delete('/tiendas/:id', tiendasController.delete);
 
+
+
    router.post('/compras', comprasController.add);
    router.get('/compras', comprasController.list);
     //Put:/usuarios/:id
     router.put('/compras/:id', comprasController.update);
     router.get('/compras/:id', comprasController.show);
+    router.get('/compras/:idTienda/tienda', comprasController.showIdTienda);
     router.delete('/compras/:id', comprasController.delete);
     return router; 
 }
